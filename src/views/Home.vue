@@ -1,18 +1,31 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <div>
+    <div v-for="(blog, index) in blogs" :key="index">
+      <blog-summary-card :blog="blog" />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import {Component, Vue} from 'vue-property-decorator';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+import BlogSummaryCard from '@/components/BlogSummaryCard.vue';
+import {namespace} from 'vuex-class';
+const blog = namespace('blog');
 
 @Component({
   components: {
-    HelloWorld,
+    BlogSummaryCard,
   },
 })
-export default class Home extends Vue {}
+export default class Home extends Vue {
+  @blog.State
+  private blogs: Blogs[];
+
+  @blog.Action
+  private fetchBlogs: (number: number, page: number) => void;
+
+  mounted() {
+    this.fetchBlogs();
+  }
+}
 </script>

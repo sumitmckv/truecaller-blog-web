@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "dayjs": "^1.8.34",
     "ky": "^0.23.0",
     "register-service-worker": "^1.7.1",
     "tailwindcss": "^1.7.3",

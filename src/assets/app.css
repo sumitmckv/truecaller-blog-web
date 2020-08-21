@@ -3,3 +3,8 @@
 @import 'tailwindcss/components';
 
 @import 'tailwindcss/utilities';
+
+body {
+    @apply bg-gray-100;
+    @apply antialiased;
+}

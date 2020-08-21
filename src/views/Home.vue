@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <div v-for="(blog, index) in blogs" :key="index">
-      <blog-summary-card :blog="blog" />
+  <div v-if="posts">
+    <div v-for="(post, index) in posts" :key="index">
+      <blog-summary-card :post="post" />
     </div>
   </div>
 </template>
@@ -9,6 +9,7 @@
 <script lang="ts">
 import {Component, Vue} from 'vue-property-decorator';
 import BlogSummaryCard from '@/components/BlogSummaryCard.vue';
+import {Post} from '@/models/post';
 import {namespace} from 'vuex-class';
 const blog = namespace('blog');
 
@@ -19,13 +20,13 @@ const blog = namespace('blog');
 })
 export default class Home extends Vue {
   @blog.State
-  private blogs: Blogs[];
+  private posts!: Post[];
 
   @blog.Action
-  private fetchBlogs: (number: number, page: number) => void;
+  private fetchPosts!: (number?: number, page?: number) => Promise<void>;
 
   mounted() {
-    this.fetchBlogs();
+    this.fetchPosts();
   }
 }
 </script>

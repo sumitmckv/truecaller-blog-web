@@ -1,11 +1,13 @@
 import {get} from './base';
-import {BlogResponse} from '@/models/blog';
+import {GetPostsResponse, PostDetail} from '@/models/post';
 
 export const blog = {
-  getBlogs: (number = 25, page = 1): Promise<BlogResponse> => {
-    //change any
+  getPosts: (number = 25, page = 1): Promise<GetPostsResponse> => {
     return get(
-      `posts/?number=${number}&order_by=date&page=${page}&fields=ID,URL,title,post_thumbnail,excerpt,date`
+      `posts/?number=${number}&order_by=date&page=${page}&fields=ID,slug,title,post_thumbnail,excerpt,date,author,categories`
     ).json();
+  },
+  getBlogBySlug: (slugId: string): Promise<PostDetail> => {
+    return get(`posts/slug:${slugId}`).json();
   },
 };

@@ -1,36 +1,45 @@
 <template>
   <div
-    v-if="blog"
+    v-if="post"
     class="max-w-2xl mx-2 md:mx-auto my-10 bg-white overflow-hidden shadow-md rounded-md"
   >
     <img
-      class="w-full h-64 object-cover"
-      :src="blog.post_thumbnail.URL"
+      class="w-full h-full object-cover"
+      :src="post.post_thumbnail.URL"
       alt="Article"
     />
 
     <div class="p-6">
       <div>
-        <span class="text-blue-600 text-xs font-medium uppercase">Product</span>
-        <a
-          :href="blog.URL"
-          class="block text-gray-800 font-semibold text-2xl mt-2 hover:text-gray-600 hover:underline"
-          >{{ blog.title }}</a
+        <span
+          v-for="(category, index) in categories"
+          :key="index"
+          class="inline-block bg-blue-100 text-blue-600 text-xs px-2 rounded-md font-semibold capitalize tracking-wide mr-1"
+          >{{ category }}</span
         >
-        <div class="text-sm text-gray-600 mt-2" v-html="blog.excerpt"></div>
-      </div>
-
-      <div class="mt-4">
-        <div class="flex items-center">
-          <div class="flex items-center">
-            <img
-              class="h-10 object-cover rounded-full"
-              src="https://images.unsplash.com/photo-1586287011575-a23134f797f9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=48&q=60"
-              alt="Avatar"
-            />
-            <a href="#" class="mx-2 text-gray-700 font-semibold">Jone Doe</a>
-          </div>
-          <span class="mx-1 text-gray-600 text-xs">{{ blog.date }}</span>
+        <a
+          :href="post.slug"
+          class="block text-gray-800 font-semibold text-2xl mt-2 hover:text-gray-600 hover:underline"
+          >{{ post.title }}
+        </a>
+        <post-info :author="post.author" :date="post.date" />
+        <div class="text-sm text-gray-600 mt-2" v-html="post.excerpt"></div>
+        <div class="flex justify-end items-center">
+          <a
+            :href="post.slug"
+            class="text-blue-600 hover:text-blue-500 text-sm tracking-wider font-medium"
+          >
+            <div class="flex items-center">
+              <span>Continue reading</span>
+              <svg
+                class="h-4 w-4 ml-1 fill-current text-blue-500"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path d="M14 15.5V12H1V8h13V4.5l5.25 5.5L14 15.5z" />
+              </svg>
+            </div>
+          </a>
         </div>
       </div>
     </div>
@@ -39,13 +48,20 @@
 
 <script lang="ts">
 import {Component, Prop, Vue} from 'vue-property-decorator';
-import {Blog} from '@/models/blog';
-
-@Component
+import {Post} from '@/models/post';
+import PostInfo from '@/components/PostInfo.vue';
+@Component({
+  components: {PostInfo},
+})
 export default class BlogSummaryCard extends Vue {
   @Prop()
-  private blog: Blog | undefined;
+  private post: Post | undefined;
+
+  get categories() {
+    if (this.post?.categories) {
+      return Object.values(this.post.categories).map(value => value.name);
+    }
+    return [];
+  }
 }
 </script>
-
-<style scoped></style>

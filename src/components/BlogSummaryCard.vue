@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="post"
-    class="max-w-2xl mx-2 md:mx-auto my-10 bg-white overflow-hidden shadow-md rounded-md"
+    class="max-w-2xl mx-2 md:mx-auto my-5 bg-white overflow-hidden shadow-md rounded-md"
   >
     <img
       class="w-full h-full object-cover"

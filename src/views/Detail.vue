@@ -1,24 +1,27 @@
 <template>
-  <div v-if="postDetail">
-    <div class="max-w-2xl mx-2 md:mx-auto">
-      <img
-        v-if="postDetail.post_thumbnail"
-        class="w-full h-full object-cover"
-        :src="postDetail.post_thumbnail.URL"
-        alt="Article"
-      />
-      <div class="py-5">
-        <span
-          v-for="(category, index) in categories"
-          :key="index"
-          class="inline-block bg-blue-100 text-blue-600 text-xs px-2 rounded-md font-semibold capitalize tracking-wide mr-1"
-          >{{ category }}
-        </span>
-        <h5 class="block text-gray-800 font-semibold text-3xl mt-2">
-          {{ postDetail.title }}
-        </h5>
-        <post-info :author="postDetail.author" n :date="postDetail.date" />
-        <div id="content" v-html="postDetail.content"></div>
+  <div>
+    <loader />
+    <div v-if="postDetail">
+      <div class="max-w-2xl mx-2 md:mx-auto">
+        <img
+          v-if="postDetail.post_thumbnail"
+          class="w-full h-full object-cover"
+          :src="postDetail.post_thumbnail.URL"
+          alt="Article"
+        />
+        <div class="py-5">
+          <span
+            v-for="(category, index) in categories"
+            :key="index"
+            class="inline-block bg-blue-100 text-blue-600 text-xs px-2 rounded-md font-semibold capitalize tracking-wide mr-1"
+            >{{ category }}
+          </span>
+          <h5 class="block text-gray-800 font-semibold text-3xl mt-2">
+            {{ postDetail.title }}
+          </h5>
+          <post-info :author="postDetail.author" n :date="postDetail.date" />
+          <div id="content" v-html="postDetail.content"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -30,9 +33,10 @@ import {PostDetail} from '@/models/post';
 import {namespace} from 'vuex-class';
 import BlogSummaryCard from '@/components/BlogSummaryCard.vue';
 import PostInfo from '@/components/PostInfo.vue';
+import Loader from '@/components/Loader.vue';
 const blog = namespace('blog');
 @Component({
-  components: {PostInfo, BlogSummaryCard},
+  components: {Loader, PostInfo, BlogSummaryCard},
 })
 export default class Detail extends Vue {
   @blog.State

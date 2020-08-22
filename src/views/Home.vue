@@ -1,7 +1,10 @@
 <template>
-  <div v-if="posts">
-    <div v-for="(post, index) in posts" :key="index">
-      <blog-summary-card :post="post" />
+  <div>
+    <loader />
+    <div v-if="posts">
+      <div v-for="(post, index) in posts" :key="index">
+        <blog-summary-card :post="post" />
+      </div>
     </div>
   </div>
 </template>
@@ -11,10 +14,12 @@ import {Component, Vue} from 'vue-property-decorator';
 import BlogSummaryCard from '@/components/BlogSummaryCard.vue';
 import {Post} from '@/models/post';
 import {namespace} from 'vuex-class';
+import Loader from '@/components/Loader.vue';
 const blog = namespace('blog');
 
 @Component({
   components: {
+    Loader,
     BlogSummaryCard,
   },
 })

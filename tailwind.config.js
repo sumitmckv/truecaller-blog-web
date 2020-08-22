@@ -29,7 +29,7 @@ module.exports = {
   plugins: [],
   purge: {
     enabled: process.env.NODE_ENV === 'production',
-    content: ['./components/**/*.vue', './views/**/*.vue'],
+    content: ['./src/**/*.html', './src/**/*.vue'],
   },
   future: {
     removeDeprecatedGapUtilities: true,

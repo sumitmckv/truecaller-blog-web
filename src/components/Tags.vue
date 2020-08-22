@@ -15,7 +15,7 @@
         Tags
       </span>
     </h5>
-    <list :items="tags" />
+    <list :items="tags" origin="tag" />
   </div>
 </template>
 
@@ -23,14 +23,14 @@
 import {Component, Vue} from 'vue-property-decorator';
 import List from '@/components/List.vue';
 import {namespace} from 'vuex-class';
-import {Tag} from '@/models/tag';
+import {Base} from '@/models/base';
 const tag = namespace('tag');
 @Component({
   components: {List},
 })
 export default class Tags extends Vue {
   @tag.State
-  private tags!: Tag[];
+  private tags!: Base[];
 
   @tag.Action
   private fetchTags!: () => Promise<void>;

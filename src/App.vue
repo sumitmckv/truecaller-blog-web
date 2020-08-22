@@ -7,10 +7,8 @@
         <router-view />
       </div>
       <div class="md:w-1/4">
-        <div>
-          <categories />
-          <tags />
-        </div>
+        <categories />
+        <tags />
       </div>
     </div>
   </div>

@@ -11,12 +11,7 @@
 
     <div class="p-6">
       <div>
-        <span
-          v-for="(category, index) in categories"
-          :key="index"
-          class="inline-block bg-blue-100 text-blue-600 text-xs px-2 rounded-md font-semibold capitalize tracking-wide mr-1"
-          >{{ category }}</span
-        >
+        <post-category :categories="post.categories" />
         <a
           :href="post.slug"
           class="block text-gray-800 font-semibold text-2xl mt-2 hover:text-gray-600 hover:underline"
@@ -50,18 +45,12 @@
 import {Component, Prop, Vue} from 'vue-property-decorator';
 import {Post} from '@/models/post';
 import PostInfo from '@/components/PostInfo.vue';
+import PostCategory from '@/components/PostCategory.vue';
 @Component({
-  components: {PostInfo},
+  components: {PostCategory, PostInfo},
 })
 export default class BlogSummaryCard extends Vue {
   @Prop()
-  private post: Post | undefined;
-
-  get categories() {
-    if (this.post?.categories) {
-      return Object.values(this.post.categories).map(value => value.name);
-    }
-    return [];
-  }
+  private post!: Post;
 }
 </script>

@@ -8,17 +8,14 @@
 
 <script lang="ts">
 import {Component, Vue} from 'vue-property-decorator';
-import BlogSummaryCard from '@/components/BlogSummaryCard.vue';
 import {Post, PostRequest} from '@/models/post';
 import {namespace} from 'vuex-class';
+import BlogSummaryCard from '../components/BlogSummaryCard.vue';
 const blog = namespace('blog');
-
 @Component({
-  components: {
-    BlogSummaryCard,
-  },
+  components: {BlogSummaryCard},
 })
-export default class Home extends Vue {
+export default class CategoryPosts extends Vue {
   @blog.State
   private posts!: Post[];
 
@@ -26,7 +23,7 @@ export default class Home extends Vue {
   private fetchPosts!: (req: PostRequest) => Promise<void>;
 
   mounted() {
-    this.fetchPosts({});
+    this.fetchPosts({category: this.$attrs.slugId});
   }
 }
 </script>

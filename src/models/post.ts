@@ -28,3 +28,10 @@ export interface PostThumbnail {
   ID: string;
   URL: URL;
 }
+
+export interface PostRequest {
+  number?: number;
+  page?: number;
+  category?: string;
+  tag?: string;
+}

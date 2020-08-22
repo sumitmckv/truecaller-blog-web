@@ -6,7 +6,7 @@
       :key="index"
     >
       <a
-        href="#"
+        :href="`/${origin}/${item.slug}`"
         class="-m-3 p-3 flex items-start space-x-4 rounded-lg hover:bg-blue-100 transition duration-150"
       >
         <div class="space-y-1">
@@ -29,7 +29,8 @@ import {Base} from '@/models/base';
 export default class List extends Vue {
   @Prop()
   private items!: Base[];
+
+  @Prop()
+  private origin!: string;
 }
 </script>
-
-<style scoped></style>

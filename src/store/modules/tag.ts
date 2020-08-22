@@ -1,13 +1,14 @@
 import {Action, Module, Mutation, VuexModule} from 'vuex-module-decorators';
-import {GetTagsResponse, Tag as TagDetail} from '@/models/tag';
+import {GetTagsResponse} from '@/models/tag';
 import {tag} from '@/api';
+import {Base} from '@/models/base';
 
 @Module({namespaced: true})
 export default class Tag extends VuexModule {
-  public tags: TagDetail[] = [];
+  public tags: Base[] = [];
 
   @Mutation
-  public setTags(tags: TagDetail[]): void {
+  public setTags(tags: Base[]): void {
     this.tags = tags;
   }
 

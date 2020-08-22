@@ -19,6 +19,7 @@
               type="button"
               class="text-gray-500 hover:text-gray-600 focus:outline-none focus:text-gray-600"
               aria-label="toggle menu"
+              @click="toggle"
             >
               <svg viewBox="0 0 24 24" class="h-6 w-6 fill-current">
                 <path
@@ -31,7 +32,7 @@
         </div>
 
         <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
-        <div class="md:flex items-center">
+        <div class="md:flex items-center" v-if="!hide">
           <div class="flex flex-col md:flex-row md:mx-6">
             <a
               class="my-1 text-xs text-gray-700 uppercase tracking-wider font-semibold  hover:text-blue-500 md:mx-4 md:my-0"
@@ -58,7 +59,13 @@
 import {Component, Vue} from 'vue-property-decorator';
 
 @Component
-export default class AppHeader extends Vue {}
+export default class AppHeader extends Vue {
+  private hide = false;
+
+  private toggle() {
+    this.hide = !this.hide;
+  }
+}
 </script>
 
 <style scoped></style>

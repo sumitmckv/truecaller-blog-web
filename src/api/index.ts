@@ -1,15 +1,19 @@
 import {get} from './base';
-import {GetPostsResponse, PostDetail} from '@/models/post';
+import {GetPostsResponse, PostDetail, PostRequest} from '@/models/post';
 import {GetCategoriesResponse} from '@/models/category';
 import {GetTagsResponse} from '@/models/tag';
 
 export const blog = {
-  getPosts: (number = 25, page = 1): Promise<GetPostsResponse> => {
+  getPosts: (req: PostRequest): Promise<GetPostsResponse> => {
+    const category = req.category ? `&category=${req.category}` : '';
+    const tag = req.tag ? `&tag=${req.tag}` : '';
+    const fields =
+      '&fields=ID,slug,title,post_thumbnail,excerpt,date,author,categories';
     return get(
-      `posts/?number=${number}&order_by=date&page=${page}&fields=ID,slug,title,post_thumbnail,excerpt,date,author,categories`
+      `posts/?number=${req.number}&page=${req.page}${category}${tag}${fields}&order_by=date`
     ).json();
   },
-  getBlogBySlug: (slugId: string): Promise<PostDetail> => {
+  getPostBySlug: (slugId: string): Promise<PostDetail> => {
     return get(`posts/slug:${slugId}`).json();
   },
 };

@@ -9,7 +9,7 @@
         Categories
       </span>
     </h5>
-    <list :items="categories" />
+    <list :items="categories" origin="category" />
   </div>
 </template>
 

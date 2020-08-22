@@ -67,5 +67,3 @@ export default class AppHeader extends Vue {
   }
 }
 </script>
-
-<style scoped></style>

@@ -13,7 +13,7 @@
       <div>
         <post-category :categories="post.categories" />
         <a
-          :href="post.slug"
+          :href="`/${post.slug}`"
           class="block text-gray-800 font-semibold text-2xl mt-2 hover:text-gray-600 hover:underline"
           >{{ post.title }}
         </a>
@@ -21,7 +21,7 @@
         <div class="text-sm text-gray-600 mt-2" v-html="post.excerpt"></div>
         <div class="flex justify-end items-center">
           <a
-            :href="post.slug"
+            :href="`/${post.slug}`"
             class="text-blue-600 hover:text-blue-500 text-sm tracking-wider font-medium"
           >
             <div class="flex items-center">

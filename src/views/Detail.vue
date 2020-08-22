@@ -8,12 +8,7 @@
         alt="Article"
       />
       <div class="pt-5">
-        <span
-          v-for="(category, index) in categories"
-          :key="index"
-          class="inline-block bg-blue-100 text-blue-600 text-xs px-2 rounded-md font-semibold capitalize tracking-wide mr-1"
-          >{{ category }}
-        </span>
+        <post-category :categories="postDetail.categories" />
         <h5 class="block text-gray-800 font-semibold text-3xl mt-2">
           {{ postDetail.title }}
         </h5>
@@ -29,9 +24,10 @@ import {Component, Vue} from 'vue-property-decorator';
 import {PostDetail} from '@/models/post';
 import {namespace} from 'vuex-class';
 import PostInfo from '@/components/PostInfo.vue';
+import PostCategory from '@/components/PostCategory.vue';
 const blog = namespace('blog');
 @Component({
-  components: {PostInfo},
+  components: {PostCategory, PostInfo},
 })
 export default class Detail extends Vue {
   @blog.State
@@ -44,13 +40,6 @@ export default class Detail extends Vue {
     if (this.$attrs.slugId) {
       this.fetchPostBySlug(this.$attrs.slugId);
     }
-  }
-
-  get categories() {
-    if (this.postDetail?.categories) {
-      return Object.values(this.postDetail.categories).map(value => value.name);
-    }
-    return [];
   }
 }
 </script>

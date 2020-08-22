@@ -6,6 +6,7 @@ import {blog} from '@/api';
 export default class Blog extends VuexModule {
   public posts: Post[] = [];
   public postDetail: PostDetail = {} as PostDetail;
+  private found = 0;
   private baseRequest: PostRequest = {
     number: 25,
     page: 1,
@@ -13,7 +14,12 @@ export default class Blog extends VuexModule {
 
   @Mutation
   public setPosts(posts: Post[]): void {
-    this.posts = posts;
+    this.posts.push(...posts);
+  }
+
+  @Mutation
+  public setFound(found: number): void {
+    this.found = found;
   }
 
   @Mutation
@@ -27,6 +33,7 @@ export default class Blog extends VuexModule {
       Object.assign(this.baseRequest, req)
     );
     this.context.commit('setPosts', res.posts);
+    this.context.commit('setFound', res.found);
   }
 
   @Action

@@ -34,7 +34,7 @@
 
 <script lang="ts">
 import {Component, Prop, Vue} from 'vue-property-decorator';
-import dayjs from 'dayjs';
+import dayjs, {Dayjs} from 'dayjs';
 import {Author} from '@/models/post';
 
 @Component
@@ -44,8 +44,38 @@ export default class PostInfo extends Vue {
   @Prop()
   private date!: string;
 
-  get formattedDate() {
-    return dayjs(this.date).format('DD MMM, YYYY');
+  get formattedDate(): string {
+    const postDate: Dayjs = dayjs(this.date);
+    if (!postDate) {
+      return '';
+    }
+    const now: Dayjs = dayjs();
+    const diffInMinute = now.diff(postDate, 'minute');
+    const diffInHour = now.diff(postDate, 'hour');
+    const diffInDay = now.diff(postDate, 'day');
+
+    // day
+    if (diffInDay > 7) {
+      return dayjs(this.date).format('DD MMM, YYYY');
+    } else if (diffInDay > 1) {
+      return `${diffInDay} days ago`;
+    } else if (diffInDay === 1) {
+      return 'Yesterday';
+    }
+
+    // hour
+    if (diffInHour >= 1) {
+      return diffInHour === 1 ? '1 hour ago' : `${diffInHour} hours ago`;
+    }
+
+    // minute
+    if (diffInMinute >= 1) {
+      return diffInMinute === 1
+        ? '1 minute ago'
+        : `${diffInMinute} minutes ago`;
+    }
+
+    return 'just now';
   }
 
   get authorName() {

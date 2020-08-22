@@ -3,11 +3,14 @@
     v-if="post"
     class="max-w-2xl mx-2 md:mx-auto my-5 bg-white overflow-hidden shadow-md rounded-md"
   >
-    <img
-      class="w-full h-full object-cover"
-      :src="post.post_thumbnail.URL"
-      alt="Article"
-    />
+    <a :href="`/${post.slug}`">
+      <img
+        v-if="post.post_thumbnail"
+        class="w-full h-full object-cover"
+        :src="post.post_thumbnail.URL"
+        alt="Article"
+      />
+    </a>
 
     <div class="p-6">
       <div>

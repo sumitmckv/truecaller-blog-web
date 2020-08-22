@@ -3,6 +3,7 @@
     <div v-for="(post, index) in posts" :key="index">
       <blog-summary-card :post="post" />
     </div>
+    <older-post @increment-page="loadOldPosts" />
   </div>
 </template>
 
@@ -11,9 +12,10 @@ import {Component, Vue} from 'vue-property-decorator';
 import {Post, PostRequest} from '@/models/post';
 import {namespace} from 'vuex-class';
 import BlogSummaryCard from '../components/BlogSummaryCard.vue';
+import OlderPost from '@/components/OlderPost.vue';
 const blog = namespace('blog');
 @Component({
-  components: {BlogSummaryCard},
+  components: {OlderPost, BlogSummaryCard},
 })
 export default class CategoryPosts extends Vue {
   @blog.State
@@ -24,6 +26,10 @@ export default class CategoryPosts extends Vue {
 
   mounted() {
     this.fetchPosts({category: this.$attrs.slugId});
+  }
+
+  private loadOldPosts(page: number) {
+    this.fetchPosts({page, category: this.$attrs.slugId});
   }
 }
 </script>

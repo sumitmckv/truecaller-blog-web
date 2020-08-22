@@ -1,5 +1,5 @@
 <template>
-  <div v-if="loading">
+  <div v-if="loading && !doNotLoad">
     <div class="relative flex justify-center items-center h-screen">
       <div
         class="inline-block animate-ping ease duration-300 w-2 h-2 rounded-full bg-blue-600 mx-2"
@@ -26,6 +26,9 @@ const loader = namespace('loader');
 export default class Loader extends Vue {
   @loader.State
   private loading!: boolean;
+
+  @loader.State
+  private doNotLoad!: boolean;
 }
 </script>
 <style scoped>

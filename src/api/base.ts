@@ -1,8 +1,6 @@
 import ky from 'ky';
 import store from '../store';
-const BASE_URL: URL = new URL(
-  'https://public-api.wordpress.com/rest/v1.1/sites/107403796'
-);
+const BASE_URL: URL = new URL('http://localhost:8181/api/');
 const apiClient = ky.create({
   prefixUrl: BASE_URL,
   headers: {},

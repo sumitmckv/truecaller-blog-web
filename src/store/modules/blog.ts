@@ -6,6 +6,7 @@ import {blog} from '@/api';
 export default class Blog extends VuexModule {
   public posts: Post[] = [];
   public postDetail: PostDetail = {} as PostDetail;
+  public relatedPosts: Post[] = [];
   private found = 0;
   private baseRequest: PostRequest = {
     number: 25,
@@ -27,6 +28,11 @@ export default class Blog extends VuexModule {
     this.postDetail = postDetail;
   }
 
+  @Mutation
+  public setRelatedPosts(posts: Post[]): void {
+    this.relatedPosts.push(...posts);
+  }
+
   @Action
   public async fetchPosts(req: PostRequest): Promise<void> {
     const res: GetPostsResponse = await blog.getPosts(
@@ -40,5 +46,11 @@ export default class Blog extends VuexModule {
   public async fetchPostBySlug(slugId: string): Promise<void> {
     const res: PostDetail = await blog.getPostBySlug(slugId);
     this.context.commit('setPostDetail', res);
+  }
+
+  @Action
+  public async fetchRelatedPosts(id: number): Promise<void> {
+    const res = await blog.getRelatedPosts(id);
+    this.context.commit('setRelatedPosts', res);
   }
 }

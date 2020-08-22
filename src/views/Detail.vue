@@ -15,6 +15,7 @@
         <post-info :author="postDetail.author" n :date="postDetail.date" />
         <div id="content" v-html="postDetail.content"></div>
       </div>
+      <related-posts />
     </div>
   </div>
 </template>
@@ -25,9 +26,12 @@ import {PostDetail} from '@/models/post';
 import {namespace} from 'vuex-class';
 import PostInfo from '@/components/PostInfo.vue';
 import PostCategory from '@/components/PostCategory.vue';
+import RelatedPosts from '@/components/RelatedPosts.vue';
 const blog = namespace('blog');
+const loader = namespace('loader');
+
 @Component({
-  components: {PostCategory, PostInfo},
+  components: {RelatedPosts, PostCategory, PostInfo},
 })
 export default class Detail extends Vue {
   @blog.State
@@ -36,9 +40,19 @@ export default class Detail extends Vue {
   @blog.Action
   private fetchPostBySlug!: (slugId: string) => Promise<void>;
 
-  mounted() {
+  @blog.Action
+  private fetchRelatedPosts!: (id: number) => Promise<void>;
+
+  @loader.Mutation
+  private setDoNotLoad!: () => void;
+
+  async mounted() {
     if (this.$attrs.slugId) {
-      this.fetchPostBySlug(this.$attrs.slugId);
+      await this.fetchPostBySlug(this.$attrs.slugId);
+      if (this.postDetail) {
+        this.setDoNotLoad();
+        await this.fetchRelatedPosts(this.postDetail.ID);
+      }
     }
   }
 }

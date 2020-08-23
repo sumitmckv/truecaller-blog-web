@@ -20,6 +20,7 @@ import AppHeader from '@/components/AppHeader.vue';
 import Categories from '@/components/Categories.vue';
 import Loader from '@/components/Loader.vue';
 import Tags from '@/components/Tags.vue';
+
 @Component({
   components: {Tags, Loader, Categories, AppHeader},
 })

@@ -18,7 +18,7 @@
         <a
           :href="`/${post.slug}`"
           class="block text-gray-800 font-semibold text-2xl mt-2 hover:text-gray-600 hover:underline"
-          >{{ post.title }}
+          ><span v-html="post.title"></span>
         </a>
         <post-info :author="post.author" :date="post.date" />
         <div class="text-sm text-gray-600 mt-2" v-html="post.excerpt"></div>

@@ -22,7 +22,7 @@
           <a
             :href="`/${post.slug}`"
             class="block text-sm tracking-wide text-gray-800 font-semibold mt-2 hover:text-gray-600 hover:underline"
-            >{{ post.title }}
+            ><span v-html="post.title"></span>
           </a>
           <post-category :categories="post.categories" />
         </div>

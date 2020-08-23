@@ -9,9 +9,10 @@
       />
       <div class="pt-5">
         <post-category :categories="postDetail.categories" />
-        <h5 class="block text-gray-800 font-semibold text-3xl mt-2">
-          {{ postDetail.title }}
-        </h5>
+        <h5
+          class="block text-gray-800 font-semibold text-3xl mt-2"
+          v-html="postDetail.title"
+        ></h5>
         <post-info :author="postDetail.author" n :date="postDetail.date" />
         <div id="content" v-html="postDetail.content"></div>
       </div>
